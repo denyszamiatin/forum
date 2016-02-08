@@ -16,9 +16,9 @@ class Moder(models.Model):
 
 
 class Topic(models.Model):
-    name = models.CharField(max_length=1000)
-    date = models.DateField()
-    state = models.CharField(max_length=1, choices=TOPIC_STATE)
+    name = models.CharField(max_length=1000, unique_for_date='date')
+    date = models.DateField(auto_now_add=True)
+    state = models.CharField(max_length=1, choices=TOPIC_STATE, default='O')
     author = models.ForeignKey(User)
     moder = models.ForeignKey(Moder)
 
@@ -27,6 +27,9 @@ class Topic(models.Model):
 
     class Meta:
         verbose_name_plural = 'Темы'
+
+    def get_absolute_url(self):
+        return "/topics/{}".format(self.pk)
 
 
 class Message(models.Model):
