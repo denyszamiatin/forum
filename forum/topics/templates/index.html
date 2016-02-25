@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load addmess %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +9,22 @@
 </head>
 <body>
 <img src="{% static 'images.png' %}" align="right" >
+    {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
 {% block content %}
+
     <h1>Topics:</h1>
     <ul>
     {% for topic in topics %}
         <li><a href="{{ topic.get_absolute_url }}">
-            {{ topic.name }}</a></li>
+            {{ topic.name|addmess:"A" }}</a></li>
     {% endfor %}
     </ul>
+
 {% endblock %}
 {% block footer %}
-    <p>&copy; 2016</p>
+    <p>&copy; 2016  Context: {{hello}}</p>
 {% endblock %}
 </body>
 </html>

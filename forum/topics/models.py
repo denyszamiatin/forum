@@ -37,7 +37,7 @@ class Message(models.Model):
     topic = models.ForeignKey(Topic, verbose_name='Тема')
     date = models.DateField('Дата')
     text = models.TextField('Текст сообщения')
-    rate = models.IntegerField('Рейтинг')
+    rate = models.IntegerField('Рейтинг', default=0)
 
     def __str__(self):
         return self.text
